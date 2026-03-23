@@ -1,56 +1,56 @@
 # Audio Splitter GUI
 
-一個用 Python + Tkinter 製作的音訊分割工具，適合處理大型錄音檔、訪談檔、會議錄音或長音訊素材。
+A simple audio-splitting tool built with Python and Tkinter for large recordings, interviews, meetings, podcasts, and long-form audio files.
 
-這個工具使用 **FFmpeg** 做實際切檔，因此支援格式廣、穩定性高，並提供簡單的 **GUI 圖形介面**，不需要打指令也能操作。
+This tool uses **FFmpeg** for the actual splitting process, which gives it broad format support and solid reliability, while keeping the workflow easy through a **GUI desktop interface**.
 
-## 功能特色
+## Features
 
-- 支援多種音訊格式：
+- Supports many audio formats:
   - `mp3`, `wav`, `m4a`, `aac`, `flac`, `ogg`, `opus`, `wma`, `aiff`, `aif`, `amr`, `mka`
-- 也支援常見含音訊的影片容器：
+- Also supports common video containers with audio tracks:
   - `mp4`, `mov`, `mkv`, `webm`, `3gp`, `ts`, `m2ts`
-- 可選擇兩種分割方式：
-  - **平均分成 N 份**
-  - **依固定時間分割**（例如每 10 分鐘一段）
-- 固定時間模式可限制 **最多輸出幾份**
-- 可選擇輸出副檔名：
+- Two split modes:
+  - **Split evenly into N parts**
+  - **Split by fixed duration** (for example, every 10 minutes)
+- In fixed-duration mode, you can optionally limit the **maximum number of output files**
+- Choose an output extension:
   - `keep`, `.mp3`, `.wav`, `.m4a`, `.aac`, `.flac`, `.ogg`, `.opus`
-- 有執行紀錄視窗與進度條
-- 適合處理「錄音檔太大，無法上傳或無法直接使用」的情境
+- Includes a log panel and progress bar
+- Useful when a recording is too large to upload, share, or process directly
 
-## 適合用途
+## Good Use Cases
 
-- 長時間會議錄音切段
-- 訪談音檔分段備份
-- 將超大錄音切成可上傳到 AI / 雲端平台的大小
-- 從影片中切出純音訊並分段
+- Splitting long meeting recordings
+- Breaking interview audio into smaller backup segments
+- Cutting large recordings into upload-friendly files for AI or cloud tools
+- Extracting and splitting audio from video files
 
-## 執行需求
+## Requirements
 
-- Python 3.10 以上
-- 已安裝並可在系統 PATH 中使用的 `ffmpeg` 與 `ffprobe`
+- Python 3.10 or later
+- `ffmpeg` and `ffprobe` installed and available in your system PATH
 
-## 快速開始
+## Quick Start
 
-### 1. 下載專案
+### 1. Clone the project
 
 ```bash
 git clone <your-repo-url>
 cd audio-splitter-gui
 ```
 
-### 2. 安裝 FFmpeg
+### 2. Install FFmpeg
 
 #### Windows
 
-可用 `winget`：
+Using `winget`:
 
 ```bash
 winget install Gyan.FFmpeg
 ```
 
-安裝後請重新開啟終端機或重新登入系統，確認以下指令可用：
+After installation, reopen your terminal or sign out and back in, then verify:
 
 ```bash
 ffmpeg -version
@@ -70,57 +70,57 @@ sudo apt update
 sudo apt install ffmpeg
 ```
 
-### 3. 執行程式
+### 3. Run the app
 
 ```bash
 python audio_splitter_gui.py
 ```
 
-Windows 也可以直接雙擊：
+On Windows, you can also double-click:
 
 - `start_windows.bat`
 
-## 操作方式
+## How to Use
 
-### 模式 A：平均分成 N 份
+### Mode A: Split into N equal parts
 
-例如：
-- 一個 60 分鐘音檔
-- 設成 4 份
-- 程式會切成約 15 分鐘 x 4 段
+Example:
+- A 60-minute audio file
+- Set the number of parts to 4
+- The app will create about 15 minutes × 4 output files
 
-### 模式 B：每段固定時間
+### Mode B: Split by fixed duration
 
-例如：
-- 每段 `00:10:00`
-- 代表每 10 分鐘切一段
+Example:
+- Segment length: `00:10:00`
+- This means one output file every 10 minutes
 
-支援以下時間格式：
+Supported time formats:
 
-- `600` → 600 秒
-- `10:00` → 10 分 0 秒
-- `00:10:00` → 10 分 0 秒
+- `600` → 600 seconds
+- `10:00` → 10 minutes 0 seconds
+- `00:10:00` → 10 minutes 0 seconds
 
-### 最多輸出份數
+### Max Output Files
 
-這個欄位可留白。
+This field can be left blank.
 
-若你只想先切前幾段，例如：
-- 每段 10 分鐘
-- 最多輸出 3 份
+If you only want the first few segments, for example:
+- 10 minutes per segment
+- Max output files = 3
 
-那就只會輸出前 30 分鐘內容。
+Then only the first 30 minutes will be exported.
 
-## 輸出格式說明
+## Output Format Notes
 
-- `keep`：保留原始副檔名
-- 其他格式：轉成指定音訊格式輸出
+- `keep`: keep the original file extension
+- Other formats: re-export as the selected audio format
 
-注意：
-本工具目前會 **重新編碼輸出**，不是直接 stream copy。
-這樣做的好處是切段相容性通常更穩，較不容易遇到某些容器或編碼在切割後無法正常播放的問題。
+Important:
+This tool currently **re-encodes output files** instead of using direct stream copy.
+That improves compatibility after splitting and reduces the chance of playback issues with certain containers or codecs.
 
-## 專案結構
+## Project Structure
 
 ```text
 audio-splitter-gui/
@@ -133,59 +133,59 @@ audio-splitter-gui/
 └─ build_exe.bat
 ```
 
-## 打包成 Windows EXE
+## Build a Windows EXE
 
-如果你想提供給不懂 Python 的使用者，可以用 PyInstaller 打包：
+If you want to distribute the app to users who do not use Python, you can package it with PyInstaller:
 
 ```bash
 pip install pyinstaller
 pyinstaller --noconfirm --onefile --windowed audio_splitter_gui.py
 ```
 
-或直接在 Windows 雙擊：
+Or on Windows, just double-click:
 
 - `build_exe.bat`
 
-打包後成品通常會在：
+The packaged executable will usually be created at:
 
 ```text
 dist/audio_splitter_gui.exe
 ```
 
-## 常見問題
+## FAQ
 
-### 1. 開啟程式後顯示找不到 ffmpeg / ffprobe
+### 1. The app says ffmpeg / ffprobe was not found
 
-代表你的電腦還沒安裝 FFmpeg，或安裝了但沒有加入 PATH。
+This means FFmpeg is not installed, or it is installed but not added to PATH.
 
-請先確認以下指令是否可執行：
+Check whether these commands work:
 
 ```bash
 ffmpeg -version
 ffprobe -version
 ```
 
-### 2. 為什麼切檔速度有時比較慢？
+### 2. Why can splitting sometimes feel slow?
 
-因為本工具目前採用重新編碼輸出，不是單純切封裝。
+Because the tool currently re-encodes output files instead of just cutting the container.
 
-### 3. 可以處理影片嗎？
+### 3. Can it process video files?
 
-可以。只要影片內有音訊軌，程式可用 `-vn` 方式忽略畫面，只輸出音訊分段。
+Yes. As long as the video contains an audio track, the app uses `-vn` to ignore video and export audio-only segments.
 
-### 4. 可不可以批次處理多個檔案？
+### 4. Can it batch-process multiple files?
 
-目前版本是單檔處理 GUI。之後可以擴充成批次模式。
+Not in the current version. This release is a single-file GUI app.
 
-## 後續可擴充方向
+## Possible Future Improvements
 
-- 拖曳檔案進視窗
-- 批次處理多個檔案
-- 依檔案大小自動切割
-- 顯示預估每段大小
-- 直接封裝成 Windows `.exe`
-- 保留 metadata 選項
+- Drag and drop files into the window
+- Batch processing for multiple files
+- Split automatically by target file size
+- Show estimated output size per segment
+- Ship a ready-made Windows `.exe`
+- Add an option to preserve metadata
 
-## 授權
+## License
 
-本專案使用 MIT License。
+This project is licensed under the MIT License.
