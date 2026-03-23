@@ -1,0 +1,9 @@
+# This project uses only Python standard library modules.
+# No third-party Python packages are required to run the GUI.
+#
+# External dependency required:
+# - ffmpeg
+# - ffprobe
+#
+# Optional for Windows EXE packaging:
+# pyinstaller
